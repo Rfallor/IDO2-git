@@ -1,7 +1,8 @@
 
+// JavaScript code
 const products = [
     "Grand Theft Auto V",
-    "The Lagend of Zelda: Breath of the Wild",
+    "The Legend of Zelda: Breath of the Wild",
     "The Legend of Zelda: Ocarina of Time",
     "Portal 2",
     "Red Dead Redemption 2",
@@ -10,30 +11,40 @@ const products = [
     "Half-Life 2",
     "Mass Effect 2",
     "Minecraft"
+
 ];
 
+function displayProducts(products) {
+    const productList = document.getElementById("product-list");
 
-const productList = document.getElementById("productList");
-for (let i = 0; i < products.length; i++) {
-    const li = document.createElement("li");
-    li.textContent = products[i];
-    productList.appendChild(li);
-}
-
-
-function searchProducts(query) {
-    return products.filter(product => product.toLowerCase().includes(query.toLowerCase()));
-}
-
-
-const searchInput = document.getElementById("search");
-searchInput.addEventListener("input", () => {
-    // Use another loop to display the filtered list of products to the user.
-    const filteredProducts = searchProducts(searchInput.value);
+    // Clear existing product list
     productList.innerHTML = "";
-    for (let i = 0; i < filteredProducts.length; i++) {
+
+    // Generate new product list
+    for (let i = 0; i < products.length; i++) {
         const li = document.createElement("li");
-        li.textContent = filteredProducts[i];
+        li.textContent = products[i];
         productList.appendChild(li);
     }
+}
+
+function searchProducts(query) {
+    // Filter products based on query
+    const filteredProducts = products.filter((product) => {
+        return product.toLowerCase().includes(query.toLowerCase());
+    });
+
+    return filteredProducts;
+}
+
+// Event listener for search input
+const searchInput = document.getElementById("search");
+searchInput.addEventListener("input", () => {
+    const query = searchInput.value;
+    const filteredProducts = searchProducts(query);
+    displayProducts(filteredProducts);
 });
+
+// Display initial product list
+displayProducts(products);
+
