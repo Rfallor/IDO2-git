@@ -1,3 +1,4 @@
+
 const products = [
     "Grand Theft Auto V",
     "The Lagend of Zelda: Breath of the Wild",
@@ -11,39 +12,28 @@ const products = [
     "Minecraft"
 ];
 
-//Display list of products to user
-const productList = document.getElementById('product-list');
+
+const productList = document.getElementById("productList");
 for (let i = 0; i < products.length; i++) {
-    const productItem = document.createElement('li');
-    productItem.textContent = products[i];
-    productList.appendChild(productItem);
+    const li = document.createElement("li");
+    li.textContent = products[i];
+    productList.appendChild(li);
 }
 
-//Search Products
+
 function searchProducts(query) {
-    const filteredProducts = [];
-    for (let i = 0; i < products.length; i++) {
-        const productName = products[i].toLowerCase();
-        if (productName.includes(query.toLowerCase())){
-            filteredProducts.push(products[i]);
-        }
-    }
-
-return filteredProducts;
+    return products.filter(product => product.toLowerCase().includes(query.toLowerCase()));
 }
 
-//Filter products based on user input
-const searchInput = document.getElementById('search-input');
-searchInput.addEventListener('input', () => {
-    const query = searchInput.ariaValueMax.trim();
-    const filteredProducts = searchProducts(query);
-    const productListItems = productList.getElementsByTagName('li');
-    for (let i = 0; i < productListItems.length; i++) {
-        const productName = productListItems[i].textContent.toLowerCase();
-        if (filteredProducts.includes(productName)) {
-            productListItems[i].style.display = 'list-item';
-        } else {
-            productListItems[i].style.display = 'none';
-        }
+
+const searchInput = document.getElementById("search");
+searchInput.addEventListener("input", () => {
+    // Use another loop to display the filtered list of products to the user.
+    const filteredProducts = searchProducts(searchInput.value);
+    productList.innerHTML = "";
+    for (let i = 0; i < filteredProducts.length; i++) {
+        const li = document.createElement("li");
+        li.textContent = filteredProducts[i];
+        productList.appendChild(li);
     }
 });
